@@ -7,3 +7,5 @@ for i in range(sifre_uzunlugu):
     sifre += random.choice(karakterler)
 
 print(sifre)
+
+print("dneeme")
