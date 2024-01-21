@@ -1,11 +1,26 @@
-import random 
-karakterler = "+-/*!&$#?=@<>abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
-sifre_uzunlugu = int(input("Şifreniz Kaç karakter uzunluğunda olsun: "))
+import discord
+import random
+# ayricaliklar (intents) değişkeni botun ayrıcalıklarını depolayacak
+intents = discord.Intents.default()
+# Mesajları okuma ayrıcalığını etkinleştirelim
+intents.message_content = True
+# client (istemci) değişkeniyle bir bot oluşturalım ve ayrıcalıkları ona aktaralım
+client = discord.Client(intents=intents)
 
-sifre = ""
-for i in range(sifre_uzunlugu):
-    sifre += random.choice(karakterler)
 
-print(sifre)
+@client.event
+async def on_ready():
+    print(f'{client.user} olarak giriş yaptık.')
 
-print("dneeme")
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    if message.content.startswith('$merhaba'):
+        await message.channel.send("Selam!")
+    elif message.content.startswith('$bye'):
+        await message.channel.send("U0001f642")
+    else:
+        await message.channel.send(message.content)
+
+client.run("MTE5NjE0NTQzMTgxMDQyNDk2NA.GwnY8k.QSbQkh8YU8IIvTkD3k9gjpMAoT4FpDT9ZuU34c")
